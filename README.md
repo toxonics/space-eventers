@@ -1,2 +1,2 @@
-# space-eventers
-Using the concept of space invaders to investigate an event drive approach with JS/TS
+# Space Eventers
+Explorer an event driven approach with JS/TS using the concept of space invaders
