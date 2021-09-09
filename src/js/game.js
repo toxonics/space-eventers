@@ -1,20 +1,17 @@
 const { Player } = require('./player');
-const { Evaders } = require('./evaders');
+const { Eventers } = require('./eventers');
 
 class Game {
     player = null
 
-    evaders = null
+    eventers = {
+        
+    }
 
     constructor(eventBus) {
         this.player = new Player(eventBus)
 
-        this.evaders = new Evaders(eventBus)
-
-        // tick tock
-        setInterval(() => {
-            eventBus.emit('tick')
-        }, 50);
+        this.eventers = new Eventers(eventBus)
     }
 }
 

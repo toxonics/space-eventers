@@ -1,4 +1,4 @@
-const { Bullet } = require('./bullet');
+const { Missile } = require('./missile');
 
 class Player {
     static dimensions = {
@@ -15,7 +15,7 @@ class Player {
         top: 0
     }
 
-    bullets = {}
+    missiles = {}
 
     eventHandlers = {
         moveLeft: (event) => {
@@ -38,9 +38,9 @@ class Player {
         this.eventBus.on('Input:ArrowRight', this.eventHandlers.moveRight)
         this.eventBus.on('Input:Space', this.eventHandlers.fire)
 
-        this.eventBus.on('BulletDestroyed', (event) => {
-            this.bullets[event.detail.id].destructor()
-            delete this.bullets[event.detail.id]
+        this.eventBus.on('MissileDestroyed', (event) => {
+            this.missiles[event.detail.id].destructor()
+            delete this.missiles[event.detail.id]
         })
 
         this.eventBus.emit('PlayerCreated', {
@@ -84,8 +84,8 @@ class Player {
     }
 
     fire() {
-        let bullet = new Bullet(this.position, Player.dimensions, this.eventBus)
-        this.bullets[bullet.id] = bullet
+        let missile = new Missile(this.position, Player.dimensions, this.eventBus)
+        this.missiles[missile.id] = missile
     }
 }
 

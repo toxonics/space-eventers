@@ -1,4 +1,4 @@
-class Bullet {
+class Missile {
     static dimensions = {
         width: 3,
         height: 8
@@ -24,15 +24,15 @@ class Bullet {
     constructor(playerPosition, playerDimensions, eventBus) {
         this.eventBus = eventBus
 
-        this.id = 'bullet-' + Math.random().toString(36).substring(10)
+        this.id = 'missile-' + Math.random().toString(36).substring(10)
 
         this.position = this.calculateInitialPosition(playerPosition, playerDimensions)
 
         this.eventBus.on('tick', this.eventHandlers.tick)
         
-        this.eventBus.emit('BulletFired', {
+        this.eventBus.emit('MissileFired', {
             id: this.id,
-            dimensions: Bullet.dimensions,
+            dimensions: Missile.dimensions,
             position: this.position
         })
     }
@@ -43,23 +43,23 @@ class Bullet {
 
     calculateInitialPosition(playerPosition, playerDimensions) {
         return {
-            top: playerPosition.top - Bullet.dimensions.height,
+            top: playerPosition.top - Missile.dimensions.height,
             left: playerPosition.left + (playerDimensions.width / 2)
         }
     }
 
     move() {
-        let moveTo = this.position.top - Bullet.moveOffset
+        let moveTo = this.position.top - Missile.moveOffset
 
         if (moveTo > 0) {
             this.position.top = moveTo
 
-            this.eventBus.emit('BulletMoved', {
+            this.eventBus.emit('MissileMoved', {
                 id: this.id,
                 position: this.position
             })
         } else {
-            this.eventBus.emit('BulletDestroyed', {
+            this.eventBus.emit('MissileDestroyed', {
                 id: this.id,
             })
         }
@@ -67,5 +67,5 @@ class Bullet {
 }
 
 module.exports = {
-    Bullet
+    Missile
 }

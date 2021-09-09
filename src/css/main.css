@@ -17,12 +17,12 @@ body {
     position: absolute;
     background-color: magenta;
 }
-.bullet {
+.missile {
     position: absolute;
     background-color: black;
     z-index: 65536;
 }
-.evader {
+.eventer {
     position: absolute;
     background-color: orange;
     width: 100px;

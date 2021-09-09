@@ -16,24 +16,24 @@ class Renderer {
             this.movePlayer(event)
         })
 
-        this.eventBus.on('BulletFired', (event) => {
-            this.createBullet(event)
+        this.eventBus.on('MissileFired', (event) => {
+            this.createMissile(event)
         })
 
-        this.eventBus.on('BulletMoved', (event) => {
-            this.moveBullet(event)
+        this.eventBus.on('MissileMoved', (event) => {
+            this.moveMissile(event)
         })
 
-        this.eventBus.on('BulletDestroyed', (event) => {
-            this.destroyBullet(event)
+        this.eventBus.on('MissileDestroyed', (event) => {
+            this.destroyMissile(event)
         })
 
-        this.eventBus.on('EvaderCreated', (event) => {
-            this.createEvader(event)
+        this.eventBus.on('EventerCreated', (event) => {
+            this.createEventer(event)
         })
 
-        this.eventBus.on('EvaderDestroyed', (event) => {
-            this.destroyEvader(event)
+        this.eventBus.on('EventerDestroyed', (event) => {
+            this.destroyEventer(event)
         })
     }
 
@@ -62,51 +62,51 @@ class Renderer {
         this.player.style.left = event.detail.position.left + 'px'
     }
 
-    createBullet(event) {
-        let bullet = document.createElement('div')
-        bullet.id = event.detail.id
-        bullet.className = 'bullet'
-        bullet.style.width = event.detail.dimensions.width + 'px'
-        bullet.style.height = event.detail.dimensions.height + 'px'
-        bullet.style.top = event.detail.position.top + 'px'
-        bullet.style.left = event.detail.position.left + 'px'
+    createMissile(event) {
+        let missile = document.createElement('div')
+        missile.id = event.detail.id
+        missile.className = 'missile'
+        missile.style.width = event.detail.dimensions.width + 'px'
+        missile.style.height = event.detail.dimensions.height + 'px'
+        missile.style.top = event.detail.position.top + 'px'
+        missile.style.left = event.detail.position.left + 'px'
 
-        this.canvas.append(bullet)
+        this.canvas.append(missile)
     }
 
-    moveBullet(event) {
-        let bullet = document.getElementById(event.detail.id)
+    moveMissile(event) {
+        let missile = document.getElementById(event.detail.id)
 
-        if (bullet) {
-            bullet  .style.top = event.detail.position.top + 'px'
+        if (missile) {
+            missile  .style.top = event.detail.position.top + 'px'
         }
     }
 
-    destroyBullet(event) {
-        let bullet = document.getElementById(event.detail.id)
+    destroyMissile(event) {
+        let missile = document.getElementById(event.detail.id)
 
-        if (bullet) {
-            this.canvas.removeChild(bullet)
+        if (missile) {
+            this.canvas.removeChild(missile)
         }
     }
 
-    createEvader(event) {
-        let evader = document.createElement('div')
-        evader.id = event.detail.id
-        evader.className = 'evader'
-        evader.style.width = event.detail.dimensions.width + 'px'
-        evader.style.height = event.detail.dimensions.height + 'px'
-        evader.style.top = event.detail.position.top + 'px'
-        evader.style.left = event.detail.position.left + 'px'
+    createEventer(event) {
+        let eventer = document.createElement('div')
+        eventer.id = event.detail.id
+        eventer.className = 'eventer'
+        eventer.style.width = event.detail.dimensions.width + 'px'
+        eventer.style.height = event.detail.dimensions.height + 'px'
+        eventer.style.top = event.detail.position.top + 'px'
+        eventer.style.left = event.detail.position.left + 'px'
 
-        this.canvas.append(evader)
+        this.canvas.append(eventer)
     }
 
-    destroyEvader(event) {
-        let evader = document.getElementById(event.detail.id)
+    destroyEventer(event) {
+        let eventer = document.getElementById(event.detail.id)
 
-        if (evader) {
-            this.canvas.removeChild(evader)
+        if (eventer) {
+            this.canvas.removeChild(eventer)
         }
     }
 }
