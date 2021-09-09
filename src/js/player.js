@@ -1,5 +1,3 @@
-const { Missile } = require('./missile');
-
 class Player {
     static dimensions = {
         width: 100,
@@ -8,14 +6,14 @@ class Player {
 
     static moveOffset = 25
 
+    canvasDimensions = null
+
     eventBus = null
 
     position = {
         left: 0,
         top: 0
     }
-
-    missiles = {}
 
     eventHandlers = {
         moveLeft: (event) => {
@@ -29,19 +27,15 @@ class Player {
         }
     }
 
-    constructor(eventBus) {
+    constructor(canvasDimensions, eventBus) {
+        this.canvasDimensions = canvasDimensions
         this.eventBus = eventBus
         
-        this.position = this.calculateInitialPosition()
+        this.position = this.initializePosition(this.canvasDimensions)
 
         this.eventBus.on('Input:ArrowLeft', this.eventHandlers.moveLeft)
         this.eventBus.on('Input:ArrowRight', this.eventHandlers.moveRight)
         this.eventBus.on('Input:Space', this.eventHandlers.fire)
-
-        this.eventBus.on('MissileDestroyed', (event) => {
-            this.missiles[event.detail.id].destructor()
-            delete this.missiles[event.detail.id]
-        })
 
         this.eventBus.emit('PlayerCreated', {
             dimensions: Player.dimensions,
@@ -49,12 +43,10 @@ class Player {
         })
     }
 
-    calculateInitialPosition() {
-        let canvasDimensions = document.getElementById('canvas').getBoundingClientRect()
-        
+    initializePosition(canvasDimensions) {
         return {
-            top: canvasDimensions.height - Player.dimensions.height - 20,
-            left: (canvasDimensions.width - Player.dimensions.width) / 2
+            top: canvasDimensions.height - Player.dimensions.height - 20, // 20px away from bottom
+            left: (canvasDimensions.width - Player.dimensions.width) / 2 // horizontal center of screen
         }
     }
 
@@ -74,7 +66,7 @@ class Player {
         let moveTo = this.position.left + Player.moveOffset
         let playerRight = moveTo + Player.dimensions.width
 
-        if (playerRight <= document.getElementById('canvas').offsetWidth) {
+        if (playerRight <= this.canvasDimensions.right) {
             this.position.left = moveTo
         }
 
@@ -84,8 +76,9 @@ class Player {
     }
 
     fire() {
-        let missile = new Missile(this.position, Player.dimensions, this.eventBus)
-        this.missiles[missile.id] = missile
+        this.eventBus.emit('PlayerFired', {
+            position: this.position
+        })
     }
 }
 

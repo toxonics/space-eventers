@@ -37,6 +37,10 @@ class Renderer {
         })
     }
 
+    canvasDimensions() {
+        return document.getElementById('canvas').getBoundingClientRect()
+    }
+
     createCanvas() {
         this.canvas = document.createElement('div')
         this.canvas.id = 'canvas'

@@ -16,10 +16,10 @@ class Eventers {
 
     }
 
-    constructor(eventBus) {
+    constructor(canvasDimensions, eventBus) {
         this.eventBus = eventBus
 
-        let initialPosition = this.calculateInitialPosition()
+        let initialPosition = this.calculateInitialPosition(canvasDimensions)
 
         let eventerPosition = {
             top: initialPosition.top,
@@ -45,9 +45,7 @@ class Eventers {
         })
     }
 
-    calculateInitialPosition() {
-        let canvasDimensions = document.getElementById('canvas').getBoundingClientRect()
-
+    calculateInitialPosition(canvasDimensions) {
         let top = Eventers.separation.top
 
         let eventersWidth = (Eventers.count / Eventers.itemsInRow) * Eventer.dimensions.width

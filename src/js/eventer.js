@@ -1,3 +1,5 @@
+const { generateRandomId } = require('./util');
+
 class Eventer {
     static dimensions = {
         width: 100,
@@ -17,14 +19,14 @@ class Eventer {
 
     eventHandlers = {
         missileMoved: (event) => {
-            this.checkMissile(event.detail)
+            this.checkMissileCollision(event.detail)
         }
     }
 
     constructor(position, eventBus) {
         this.eventBus = eventBus
 
-        this.id = 'eventer-' + Math.random().toString(36).substring(10)
+        this.id = generateRandomId('eventer')
 
         this.position = {
             top: position.top,
@@ -44,7 +46,7 @@ class Eventer {
         this.eventBus.off('MissileMoved', this.eventHandlers.missileMoved)
     }
 
-    checkMissile(missile) {
+    checkMissileCollision(missile) {
         if (
             (this.position.top + Eventer.dimensions.height) >= missile.position.top && 
             this.position.left <= missile.position.left &&

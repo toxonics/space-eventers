@@ -1,3 +1,5 @@
+const { generateRandomId } = require('./util');
+
 class Missile {
     static dimensions = {
         width: 3,
@@ -24,7 +26,7 @@ class Missile {
     constructor(playerPosition, playerDimensions, eventBus) {
         this.eventBus = eventBus
 
-        this.id = 'missile-' + Math.random().toString(36).substring(10)
+        this.id = generateRandomId('missile')
 
         this.position = this.calculateInitialPosition(playerPosition, playerDimensions)
 

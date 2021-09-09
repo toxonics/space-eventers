@@ -1,13 +1,13 @@
-const { EventBus } = require('./eventbus');
+const { MessageBus } = require('./messagebus');
 const { Game } = require('./game');
 const { Renderer } = require('./renderer');
 
 window.onload = () => {
-    let eventBus = new EventBus('event-bus')
-    let commandBus = new EventBus('command-bus')
+    let eventBus = new MessageBus('events')
+    let commandBus = new MessageBus('commands')
 
     window.renderer = new Renderer(eventBus)
-    window.game = new Game(eventBus)
+    window.game = new Game(window.renderer.canvasDimensions(), eventBus)
 
     // controls
     window.onkeydown = (e) => {

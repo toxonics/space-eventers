@@ -1,4 +1,4 @@
-class EventBus {
+class MessageBus {
     bus = null
 
     constructor(description) {
@@ -24,5 +24,5 @@ class EventBus {
 }
 
 module.exports = {
-    EventBus
+    MessageBus
 }
